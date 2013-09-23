@@ -320,5 +320,5 @@
 \vspace{.3cm}
 {\tiny Note: this presentation was made with \LaTeX, Beamer + Wiki2Beamer}
 
-{\tiny Example: {{http://github.com/gjuggler/talk-pdoc-seminar}}}
+{\tiny Source code: \href{https://github.com/wikiselev/department-seminar}{https://github.com/wikiselev/department-seminar}}
 
