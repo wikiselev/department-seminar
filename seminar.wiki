@@ -1,0 +1,324 @@
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+	
+== Background  ==
+
+=== PI3K signaling pathway ===
+
+==== General View ====
+
+<[center]
+<<<figs/pi3k-pathway.png,height=.7\textheight>>>
+[center]>
+
+==== Properties ====
+
+* Interactions both on the cell membrane (2D) and in the cytoplasm (3D)
+* Kinase and phosphatase activities
+* Phosphoinositide (PIP2, PIP3 etc.) complexity
+
+=== Phosphoinositides ===
+
+==== Isoform Complexity ====
+
+<[columns]
+
+[[[.6\textwidth]]]
+<[center]
+<<<figs/pis.pdf,height=.6\textheight>>>
+[center]>
+
+\fn{Figure from www.biochemsoctrans.org}
+
+[[[.4\textwidth]]]
+
+* Each PI species has 6 isoforms
+* In total \(8*6=48\) isoforms
+
+[columns]>
+
+==== Conversion Complexity ====
+
+<[center]
+<<<figs/pi-loop.pdf,height=.7\textheight>>>
+[center]>
+
+=== Systems Biology ===
+
+==== Computational Modeling ====
+
+* Has been widely used in different biological disciplines
+* Has been proved to be robust and reliable
+* Helps tackling the complexity problem
+
+== System Biology Modeling ==
+
+=== Overview ===
+
+==== Kinetic Modeling ====
+
+* Deterministic -- use a set of ODE to describe evolution of the system
+** Assuming that the system is well stirred and spatially homogeneous
+* Stochastic -- more general approach directly taking into account system fluctuations
+** Is required when number of particles in the systems is small
+* Others (e.g. Rule Based Modeling)
+
+=== Our Model ===
+
+==== Design Overview ====
+
+<[center]
+<<<figs/pi3k-pathway1.png,height=.7\textheight>>>
+[center]>
+
+==== Mass-Spec Data ====
+
+<[columns]
+
+[[[.6\textwidth]]]
+<<<figs/malek.jpg,height=.15\textheight>>>
+* PI, PIP, PIP2, PIP3 concentrations were measured using mass-spectrometry
+* Impossible to distinguish between several species
+* \([PI(4,5)P2] \gg [PI(3,4)P2]\) \([PI(4,5)P2] \gg [PI(3,5)P2]\)
+* \([PI(4)P] \gg [PI(3)P]\) \([PI(4)P] \gg [PI(5)P]\) 
+[[[.4\textwidth]]]
+<[center]
+<<<figs/pi-loop1.png,height=.55\textheight>>>
+[center]>
+[columns]>
+
+==== Design 1 -- without PI(3,4)P2 ====
+
+<[center]
+<<<figs/model1.pdf,height=.7\textheight>>>
+[center]>
+
+==== Analysis ====
+
+<[center]
+<<<figs/model1-analysis.pdf,height=.8\textheight>>>
+[center]>
+
+==== Parameter Estimation ====
+
+<[columns]
+
+[[[.3\textwidth]]]
+* 1000 runs
+* Best 10 runs were considered
+
+[[[.7\textwidth]]]
+<<<figs/model1-param-est.pdf,height=.65\textheight>>>
+
+[columns]>
+
+
+==== Results ====
+
+<[center]
+<<<figs/model1-results.pdf,height=.8\textheight>>>
+[center]>
+
+=== Predictions ===
+
+==== SHIP1/SHIP2 Activity ====
+
+<[center]
+<<<figs/pi3k-pathway1.png,height=.7\textheight>>>
+[center]>
+
+==== SHIP1/SHIP2 Activity ====
+
+<[center]
+<<<figs/pip3_flux.png,height=.3\textheight>>>
+[center]>
+
+<[center]
+<<<figs/ship.pdf,height=.4\textheight>>>
+[center]>
+
+==== FRET Data ====
+
+<[columns]
+
+[[[.6\textwidth]]]
+* PI(3,4)P2 concentration was identified at the University of Dundee
+[[[.4\textwidth]]]
+<[center]
+<<<figs/pi-loop2.png,height=.55\textheight>>>
+[center]>
+[columns]>
+
+==== SHIP1/SHIP2 Activity ====
+
+<[center]
+<<<figs/pip3_flux.png,height=.3\textheight>>>
+[center]>
+<[columns]
+[[[.5\textwidth]]]
+<[center]
+<<<figs/pi34_wt.png,height=.35\textheight>>>
+[center]>
+[[[.5\textwidth]]]
+<[center]
+<<<figs/pi34_pten.png,height=.35\textheight>>>
+[center]>
+[columns]>
+
+==== Adding SHIP1/SHIP2 -- In Progress ====
+
+<[center]
+<<<figs/model2.pdf,height=.7\textheight>>>
+[center]>
+
+==== Future Plan ====
+
+<[columns]
+[[[.6\textwidth]]]
+* Adding spatial dimension
+* Stochastic reactions
+* Single molecule representations rather than populations
+[[[.4\textwidth]]]
+<[center]
+<<<figs/model_spatial.png,height=.5\textheight>>>
+[center]>
+[columns]>
+
+== Gene Expression Analysis ==
+
+=== RNA-seq ===
+
+==== Brief Intro ====
+
+<[center]
+<<<figs/gene-expression.png,height=.7\textheight>>>
+[center]>
+
+\fn{Figure from www.discovery.lifemapsc.com}
+
+==== Method ====
+
+<[center]
+<<<figs/RNA-sequencing.png,height=.7\textheight>>>
+[center]>
+
+\fn{Figure from www.raetschlab.org}
+
+==== Read Alignment ====
+
+<[center]
+<<<figs/alignment.png,height=.6\textheight>>>
+[center]>
+
+\fn{Figure from www.arrayserver.com}
+
+=== Our Data ===
+
+==== Experiment Design ====
+
+-- Everything done by Veronique Juvin
+* Human, breast-derived MCF10a cell line
+* 4 conditions
+** WT
+** WT + p110\(\alpha\) selective inhibitor (A66) -- KO below
+** PTEN -/- (both mutant alleles) -- PTEN below
+** p110\(\alpha\) H1047R/+ (1 WT allele / 1 mutant allele) -- KI below
+* RNA-seq time course measurements at 0m-15m-40m-90m-180m-300m
+* 3 replicates for each point
+
+==== Expression Data ====
+
+<[center]
+<<<figs/rna-seq-data.png,height=.6\textheight>>>
+[center]>
+
+=== Preliminary Analysis ===
+
+==== Correlation Matrix ====
+
+<[center]
+<<<figs/correlation-matrix.png,height=.8\textheight>>>
+[center]>
+
+==== Principal Component Analysis ====
+
+<[center]
+<<<figs/pca2.pdf,height=.7\textheight>>>
+[center]>
+
+=== Time-Course Analysis ===
+
+==== DE Analysis Tool ====
+
+* DESeq package (from Bioconductor) -- takes into account all replicates
+* FDR of 1\%
+
+==== Time Direction ====
+
+<[center]
+<<<figs/rna-seq-data1.png,height=.6\textheight>>>
+[center]>
+
+==== Time Direction ====
+
+<[center]
+<<<figs/time_direction.png,height=.7\textheight>>>
+[center]>
+
+==== Time Profiles ====
+
+<[center]
+<<<figs/time_profiles1.png,height=.7\textheight>>>
+[center]>
+
+==== Time Profiles ====
+
+<[center]
+<<<figs/time_profiles2.png,height=.7\textheight>>>
+[center]>
+
+==== Condition Direction ====
+
+<[center]
+<<<figs/rna-seq-data2.png,height=.6\textheight>>>
+[center]>
+
+==== Condition Direction ====
+
+<[center]
+<<<figs/condition_direction.png,height=.7\textheight>>>
+[center]>
+
+==== Condition Profiles ====
+
+<[center]
+<<<figs/cond_profiles.pdf,height=.8\textheight>>>
+[center]>
+
+==== Future Plan ====
+
+* Identify unique EGF stimulation related genes
+
+== Acknowledgments ==
+
+==== Acknowledgments ====
+* People
+** Mouhannad Malek, Veronique Juvin
+** Len Stephens, Phill Hawkins
+** Nicolas Le Novere and the group
+** Nicholas Luscombe and the LRI group
+** Marija Jankovic, Sven Bergmann, Anne Segonds-Pichon, Simon Andrews
+* Money
+** BBSRC grant
+** Babraham Institute
+
+\vspace{.3cm}
+{\tiny Note: this presentation was made with \LaTeX, Beamer + Wiki2Beamer}
+
+{\tiny Example: {{http://github.com/gjuggler/talk-pdoc-seminar}}}
+

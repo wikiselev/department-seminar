@@ -1,0 +1,417 @@
+
+
+<HTML><HEAD><TITLE>Manpage of wiki2beamer (man wiki2beamer)</TITLE>
+</HEAD><BODY>
+<H1>wiki2beamer</H1>
+Section:  (1)<BR>Updated: 31 March 2012<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<B><A HREF="http://localhost/cgi-bin/man/man2html?1+wiki2beamer">wiki2beamer</A></B>(1)
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+wiki2beamer - convert wiki-formatted text to latex-beamer code
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+
+
+
+<B>wiki2beamer</B> 
+
+
+[<I>OPTION</I>...] [<I>FILE</I>...]
+
+
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<DL COMPACT>
+<DT><I>FILE</I><DD>
+the text-file(s) to be processed
+<DT><B>-h</B>,<B>--help</B><DD>
+show a short usage help
+<DT>--version<DD>
+show version information
+<DT><B>-o</B>,<B>--output</B> <I>FILE</I><DD>
+write output to <I>FILE</I> instead of stdout
+</DL>
+<A NAME="lbAE">&nbsp;</A>
+<H2>USAGE</H2>
+
+Usually you want to pipe the output of wiki2beamer into a file:
+<P>
+
+wiki2beamer footalk.txt &gt; footalk.tex
+<P>
+
+If called with multiple input files, wiki2beamer processes them in
+order with their content being simply concatenated. If called without
+any input file, wiki2beamer will attempt to read input from STDIN. If
+no input files are supplied and nothing is available on STDIN,
+wiki2beamer prints its usage message and exits.
+<P>
+
+If an error occurs, wiki2beamer returns a return code other then 0.
+<A NAME="lbAF">&nbsp;</A>
+<H2>SYNTAX</H2>
+
+Wiki2beamer has it's own wiki-syntax which (evolved without much of a concept ;) and) is described below.
+Everything that is unknown to wiki2beamer will be passed through to the LaTeX output
+(unless inside special environments).
+<A NAME="lbAG">&nbsp;</A>
+<H3>OVERALL STRUCTURE</H3>
+
+A wiki2beamer txt file can consist of two sections: the head and the body.
+The head is optional and is an autotemplate environment.
+The body contains the content of the document. If the head (autotemplate) is not given,
+then only the code for the body will be generated and can be included into a manually crafted
+LaTeX template file.
+<A NAME="lbAH">&nbsp;</A>
+<H3>MANAGING INPUT</H3>
+
+You can split input to wiki2beamer into multiple files. This helps to keep things apart and avoids conflicts.
+There are two ways to split input. The first is to use multiple input files which wiki2beamer will read and process in order as
+if they were one concatenated file. The second is to use the &gt;&gt;&gt;include&lt;&lt;&lt; syntax.
+<DL COMPACT>
+<DT>&gt;&gt;&gt;<I>includefile</I>&lt;&lt;&lt;<DD>
+Include the file named <I>includefile</I> at this line. Works recursively. Endless recursion
+will be detected and treated as an error. Including files doesn't work inside [nowiki] and [code] environments
+(see below).
+</DL>
+<A NAME="lbAI">&nbsp;</A>
+<H3>STRUCTURING THE PRESENTATION</H3>
+
+<DL COMPACT>
+<DT>== <I>sectionname</I> ==<DD>
+opens a section called <I>sectionname</I>
+<DT>== <I>longsectionname</I> ==[<I>shortname</I>]<DD>
+opens a section called <I>longsectionname</I>, 
+passing the parameter <I>shortname</I> to latex
+<DT>=== <I>subsectname</I> ===<DD>
+opens a subsection called <I>subsectname</I>
+<DT>=== <I>longsubsectname</I> ===[<I>shortname</I>]<DD>
+opens a subsection called <I>longsubsectname</I>,
+passing the parameter <I>shortname</I> to latex
+<DT>==== <I>frametitle</I> ====<DD>
+opens a frame with the title <I>frametitle</I>
+<DT>==== <I>frametitle</I> ====[<I>param</I>]<DD>
+opens a frame with the title <I>frametitle</I>,
+passes frame <I>param</I>eters like t, fragile, verbatim etc. to latex
+<DT>!==== <I>frametitle</I> ====[<I>param</I>]<DD>
+the ! added in front of a frame, selects a frame for exclusive generation.
+It makes wiki2beamer skip all frames that are not selected.
+You can select multiple frames. This can speed up the edit-compile-view cycle massively.
+</DL>
+<P>
+
+Sectioning commands work only at the beginning of a line.
+<A NAME="lbAJ">&nbsp;</A>
+<H3>LISTS (BULLETS/ENUMERATIONS)</H3>
+
+<DL COMPACT>
+<DT>* <I>text</I><DD>
+create a bullet (itemize) with <I>text</I>
+<DT>*&lt;<I>onslide</I>&gt; <I>text</I><DD>
+create a bullet (itemize) with <I>text</I> that only
+appears on the specified slides (<I>onslide</I>)
+<DT># <I>text</I><DD>
+create a numbered item (enumerate) with <I>text</I>
+<DT>#&lt;<I>onslide</I>&gt; <I>text</I><DD>
+create a numbered item (enumerate) with <I>text</I> that only
+appears on the specified slides (<I>onslide</I>)
+</DL>
+<P>
+
+Cascaded lists, mixed ordered and unordered items:
+<P>
+<PRE>
+
+        * This is a crazy list.
+        *# It contains different items.
+        *# In different formats.
+        *** On different levels.
+        ***&lt;2-&gt; which are animated
+        *&lt;3-&gt; Quite a lot of fun.
+        **&lt;4-&gt; Isn't it?
+        
+</PRE>
+
+<A NAME="lbAK">&nbsp;</A>
+<H3>ENVIRONMENTS</H3>
+
+LaTeX knows many environments, some of which are as simple as \begin{center} \end{center}, others are more complicated.
+To use these in a more wiki-like fashion, use &lt;[name] to open and [name]&gt; to close environments. It will
+be simply converted to \begin{name} and end{name}.
+<DL COMPACT><DT><DD>
+<B>Warning</B>
+<P>
+No parsing is done. The user is responsible for closing any opened environment. Environment-tags are only recognized at the beginning of a line.
+</DL>
+
+<A NAME="lbAL">&nbsp;</A>
+<H3>SPECIAL ENVIRONMENTS</H3>
+
+Unlike standard environments, some environment names are recognized by wiki2beamer.
+These are: nowiki, code, autotemplate and frame. If wiki2beamer detects one of these it will do some advanced
+parsing, which can even fail with a syntax error.
+<A NAME="lbAM">&nbsp;</A>
+<H3>AUTOTEMPLATE</H3>
+
+Autotemplate can be used at the beginning of a beamer .txt file. It will create the required
+LaTeX headers to compile the content.
+<DL COMPACT>
+<DT>&lt;[autotemplate]<DD>
+opens the autotemplate environment
+<DT>[autotemplate]&gt;<DD>
+close the autotemplate environment
+<DT><I>key</I>=<I>value</I> (inside [autotemplate])<DD>
+insert a template command \<I>key</I><I>value</I>
+</DL>
+<P>
+
+key=value pairs are converted to \keyvalue in the output
+(except special keys) -- everything after = is just appended to \key.
+<P>
+<PRE>
+&lt;[autotemplate]
+usepackage=[utf8]{inputenc}
+[autotemplate]&gt;
+</PRE>
+
+<P>
+will be converted to \usepackage[utf8]{inputenc}.
+<P>
+
+There is a built-in set of options:
+<P>
+<PRE>
+&lt;[autotemplate]
+documentclass={beamer}
+usepackage={listings}
+usepackage={wasysym}
+usepackage={graphicx}
+date={\today}
+lstdefinestyle={basic}{....}
+titleframe=True
+[autotemplate]&gt;
+</PRE>
+
+<P>
+titleframe is a special key that tells wiki2beamer to create a title frame. To set the title, subtitle and author of the presentation
+use the keys title, subtitle and author. Overriding of the default options works on
+<DL COMPACT>
+<DT>*<DD>
+per-key level for: documentclass, titleframe
+<DT>*<DD>
+per-package level for: usepackage
+<DT>*<DD>
+no overriding for: everything else
+</DL>
+<A NAME="lbAN">&nbsp;</A>
+<H3>CODE</H3>
+
+Use code-environments to display animated code listings.
+<DL COMPACT>
+<DT>&lt;[code]<DD>
+open a code environment
+<DT>&lt;[code][<I>param</I>]<DD>
+open a code environment passing <I>param</I>eters
+to the latex lstlisting environment.
+<DT>[code]&gt;<DD>
+close the code environment
+</DL>
+<P>
+
+<PRE>
+
+                        &lt;[code][key=value,...]
+                        ...
+                        [code]&gt;
+                        
+</PRE>
+
+<P>
+&lt;[code] opens the environment, [code]&gt; closes it, everything after &lt;[code] is passed
+to the LaTeX listings package as options for this listing.
+Inside the code environment, [ and ] must be escaped as \[ and \]. Things between [ and ] are animations.
+There are two kinds of animations:
+<DL COMPACT>
+<DT>*<DD>
+[&lt;slidespec&gt;some code] - show &quot;some code&quot; only on specified slides
+<DT>*<DD>
+[[&lt;slidespec&gt;some code][&lt;slidespec&gt;some other code]] - show &quot;some code&quot;
+on the slides in the first spec, show &quot;some other code&quot; on the slides in the second spec, fill up space
+on slides without content with spaces
+</DL>
+<P>
+
+Slide-specs can be of the form:
+<DL COMPACT>
+<DT>*<DD>
+n - one single frame n
+<DT>*<DD>
+n-m - sequence of frames n to m
+<DT>*<DD>
+spec,spec,... - combine multiple specs into on (e.g. &lt;1-3,5&gt;)
+</DL>
+<A NAME="lbAO">&nbsp;</A>
+<H3>NOWIKI</H3>
+
+Nowiki-Environments completely escape from wiki2beamer replacements. &lt;[nowiki] opens the environment, [nowiki]&gt; closes it.
+<A NAME="lbAP">&nbsp;</A>
+<H3>FRAME</H3>
+
+The LaTeX-frame environment is where the content of a slide goes.
+You can manually close a frame-environment which was opened with ==== Frametitle ==== with [frame]&gt;.
+Wiki2beamer is then aware that the last frame is already closed and doesn't try to close it again.
+<A NAME="lbAQ">&nbsp;</A>
+<H3>TEXT FORMATTING</H3>
+
+<DL COMPACT>
+<DT>'''<I>text</I>'''<DD>
+typeset <I>text</I> bold
+<DT>''<I>text</I>''<DD>
+typeset <I>text</I> italic
+<DT>@<I>text</I>@<DD>
+typeset <I>text</I> in typewriter type, to ignore an @, escape it as \@
+<DT>!<I>text</I>!<DD>
+alert <I>text</I>, to ignore an !, escape it as \!
+<DT>_ <I>color</I> _ <I>text</I> _<DD>
+make <I>text</I> appear in <I>color</I>
+</DL>
+<A NAME="lbAR">&nbsp;</A>
+<H3>COLUMNS</H3>
+
+<DL COMPACT>
+<DT>&lt;[columns]<DD>
+opens the column environment
+<DT>[[[ <I>width</I> ]]]<DD>
+creates a column of <I>width</I>, everything below goes into this column
+<DT>[columns]&gt;<DD>
+closes the column environment
+</DL>
+<A NAME="lbAS">&nbsp;</A>
+<H3>GRAPHICS</H3>
+
+<DL COMPACT>
+<DT>&lt;&lt;&lt;<I>pathtofile</I>&gt;&gt;&gt;<DD>
+include image from <I>pathtofile</I>
+<DT>&lt;&lt;&lt;<I>pathtofile</I>,<I>key=value</I>&gt;&gt;&gt;<DD>
+include image from <I>pathtofile</I> passing <I>key=value</I>
+parameters to latex
+</DL>
+<A NAME="lbAT">&nbsp;</A>
+<H3>FOOTNOTES</H3>
+
+<DL COMPACT>
+<DT>(((<I>text</I>)))<DD>
+create a footnote containing <I>text</I>
+</DL>
+<A NAME="lbAU">&nbsp;</A>
+<H3>LAYOUT</H3>
+
+<DL COMPACT>
+<DT>--<I>length</I>--<DD>
+when found at start of line, with nothing afterwards,
+insert a \vspace{<I>length</I>} (vertical space of length
+<I>length</I>)
+<DT>--*<I>length</I>--<DD>
+same as above, but insert a \vspace* (a forced vspace)
+<DT>+&lt;<I>overlay</I>&gt;{<I>content</I>}<DD>
+\uncover the <I>content</I> on the given <I>overlay
+</I>subframes. They will already take up the space, they need to be displayed, so the geometry of the frame doesn't change when the element pops up.
+<DT>-&lt;<I>overlay</I>&gt;{<I>content</I>}<DD>
+\only show the <I>content</I> on the given <I>overlay
+</I>subframes. They will not take up the space they need to be displayed, so the geometry of the frame changes when the element pops up.
+</DL>
+<A NAME="lbAV">&nbsp;</A>
+<H3>SUBSTITUTIONS</H3>
+
+<DL COMPACT>
+<DT>--&gt;<DD>
+becomes $\rightarrow$
+<DT>==&gt;<DD>
+becomes $\Rightarrow$
+<DT>&lt;--<DD>
+becomes $\leftarrow$
+<DT>&lt;==<DD>
+becomes $\Leftarrow$
+<DT>:-)<DD>
+becomes \smiley (requires package wasysym)
+<DT>:-(<DD>
+becomes \frownie (requires package wasysym)
+</DL>
+<A NAME="lbAW">&nbsp;</A>
+<H3>FRAME HEADERS/FOOTERS</H3>
+
+There are two variables, FRAMEHEADER and FRAMEFOOTER. The content of these will be inserted at the beginning/end of all following slides.
+<DL COMPACT>
+<DT>@FRAMEHEADER=<I>text</I><DD>
+set frameheader to <I>text</I>
+<DT>@FRAMEFOOTER=<I>text</I><DD>
+set framefooter to <I>text</I>
+</DL>
+<P>
+
+Leave <I>text</I> empty to reset frame headers and footers.
+<A NAME="lbAX">&nbsp;</A>
+<H2>LICENSE</H2>
+
+Copyright (C) 2009 Kai Dietrich, Michael Rentzsch and others.
+<A NAME="lbAY">&nbsp;</A>
+<H3>DOCUMENTATION LICENSE</H3>
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3
+or any later version published by the Free Software Foundation;
+<A NAME="lbAZ">&nbsp;</A>
+<H3>CODE LICENSE</H3>
+
+wiki2beamer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">USAGE</A><DD>
+<DT><A HREF="#lbAF">SYNTAX</A><DD>
+<DL>
+<DT><A HREF="#lbAG">OVERALL STRUCTURE</A><DD>
+<DT><A HREF="#lbAH">MANAGING INPUT</A><DD>
+<DT><A HREF="#lbAI">STRUCTURING THE PRESENTATION</A><DD>
+<DT><A HREF="#lbAJ">LISTS (BULLETS/ENUMERATIONS)</A><DD>
+<DT><A HREF="#lbAK">ENVIRONMENTS</A><DD>
+<DT><A HREF="#lbAL">SPECIAL ENVIRONMENTS</A><DD>
+<DT><A HREF="#lbAM">AUTOTEMPLATE</A><DD>
+<DT><A HREF="#lbAN">CODE</A><DD>
+<DT><A HREF="#lbAO">NOWIKI</A><DD>
+<DT><A HREF="#lbAP">FRAME</A><DD>
+<DT><A HREF="#lbAQ">TEXT FORMATTING</A><DD>
+<DT><A HREF="#lbAR">COLUMNS</A><DD>
+<DT><A HREF="#lbAS">GRAPHICS</A><DD>
+<DT><A HREF="#lbAT">FOOTNOTES</A><DD>
+<DT><A HREF="#lbAU">LAYOUT</A><DD>
+<DT><A HREF="#lbAV">SUBSTITUTIONS</A><DD>
+<DT><A HREF="#lbAW">FRAME HEADERS/FOOTERS</A><DD>
+</DL>
+<DT><A HREF="#lbAX">LICENSE</A><DD>
+<DL>
+<DT><A HREF="#lbAY">DOCUMENTATION LICENSE</A><DD>
+<DT><A HREF="#lbAZ">CODE LICENSE</A><DD>
+</DL>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 20:41:15 GMT, March 31, 2012
+</BODY>
+</HTML>

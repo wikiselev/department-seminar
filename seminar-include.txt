@@ -1,0 +1,579 @@
+
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+
+\section{Background}
+
+
+
+
+\subsection{PI3K signaling pathway}
+
+
+
+\begin{frame}
+ \frametitle{General View}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/pi3k-pathway.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Properties}
+  
+
+
+\begin{itemize}
+  \item Interactions both on the cell membrane (2D) and in the cytoplasm (3D)
+  \item Kinase and phosphatase activities
+  \item Phosphoinositide (PIP2, PIP3 etc.) complexity
+\end{itemize}
+
+  
+\end{frame}
+
+\subsection{Phosphoinositides}
+
+
+
+\begin{frame}
+ \frametitle{Isoform Complexity}
+  
+
+
+\begin{columns}
+
+\column{.6\textwidth}
+\begin{center}
+\includegraphics[height=.6\textheight]{figs/pis.pdf}
+\end{center}
+
+\fn{Figure from www.biochemsoctrans.org}
+
+\column{.4\textwidth}
+
+\begin{itemize}
+  \item Each PI species has 6 isoforms
+  \item In total \(8*6=48\) isoforms
+\end{itemize}
+
+\end{columns}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Conversion Complexity}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/pi-loop.pdf}
+\end{center}
+
+  
+\end{frame}
+
+\subsection{Systems Biology}
+
+
+
+\begin{frame}
+ \frametitle{Computational Modeling}
+  
+
+
+\begin{itemize}
+  \item Has been widely used in different biological disciplines
+  \item Has been proved to be robust and reliable
+  \item Helps tackling the complexity problem
+\end{itemize}
+
+  
+\end{frame}
+
+\section{System Biology Modeling}
+
+
+
+
+\subsection{Overview}
+
+
+
+\begin{frame}
+ \frametitle{Kinetic Modeling}
+  
+
+
+\begin{itemize}
+  \item Deterministic -- use a set of ODE to describe evolution of the system
+\begin{itemize}
+  \item Assuming that the system is well stirred and spatially homogeneous
+\end{itemize}
+  \item Stochastic -- more general approach directly taking into account system fluctuations
+\begin{itemize}
+  \item Is required when number of particles in the systems is small
+\end{itemize}
+  \item Others (e.g. Rule Based Modeling)
+\end{itemize}
+
+  
+\end{frame}
+
+\subsection{Our Model}
+
+
+
+\begin{frame}
+ \frametitle{Design Overview}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/pi3k-pathway1.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Mass-Spec Data}
+  
+
+
+\begin{columns}
+
+\column{.6\textwidth}
+\includegraphics[height=.15\textheight]{figs/malek.jpg}
+\begin{itemize}
+  \item PI, PIP, PIP2, PIP3 concentrations were measured using mass-spectrometry
+  \item Impossible to distinguish between several species
+  \item \([PI(4,5)P2] \gg [PI(3,4)P2]\) \([PI(4,5)P2] \gg [PI(3,5)P2]\)
+  \item \([PI(4)P] \gg [PI(3)P]\) \([PI(4)P] \gg [PI(5)P]\)
+\end{itemize}
+\column{.4\textwidth}
+\begin{center}
+\includegraphics[height=.55\textheight]{figs/pi-loop1.png}
+\end{center}
+\end{columns}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Design 1 -- without PI(3,4)P2}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/model1.pdf}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Analysis}
+  
+
+
+\begin{center}
+\includegraphics[height=.8\textheight]{figs/model1-analysis.pdf}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Parameter Estimation}
+  
+
+
+\begin{columns}
+
+\column{.3\textwidth}
+\begin{itemize}
+  \item 1000 runs
+  \item Best 10 runs were considered
+\end{itemize}
+
+\column{.7\textwidth}
+\includegraphics[height=.65\textheight]{figs/model1-param-est.pdf}
+
+\end{columns}
+
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Results}
+  
+
+
+\begin{center}
+\includegraphics[height=.8\textheight]{figs/model1-results.pdf}
+\end{center}
+
+  
+\end{frame}
+
+\subsection{Predictions}
+
+
+
+\begin{frame}
+ \frametitle{SHIP1/SHIP2 Activity}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/pi3k-pathway1.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{SHIP1/SHIP2 Activity}
+  
+
+
+\begin{center}
+\includegraphics[height=.3\textheight]{figs/pip3_flux.png}
+\end{center}
+
+\begin{center}
+\includegraphics[height=.4\textheight]{figs/ship.pdf}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{FRET Data}
+  
+
+
+\begin{columns}
+
+\column{.6\textwidth}
+\begin{itemize}
+  \item PI(3,4)P2 concentration was identified at the University of Dundee
+\end{itemize}
+\column{.4\textwidth}
+\begin{center}
+\includegraphics[height=.55\textheight]{figs/pi-loop2.png}
+\end{center}
+\end{columns}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{SHIP1/SHIP2 Activity}
+  
+
+
+\begin{center}
+\includegraphics[height=.3\textheight]{figs/pip3_flux.png}
+\end{center}
+\begin{columns}
+\column{.5\textwidth}
+\begin{center}
+\includegraphics[height=.35\textheight]{figs/pi34_wt.png}
+\end{center}
+\column{.5\textwidth}
+\begin{center}
+\includegraphics[height=.35\textheight]{figs/pi34_pten.png}
+\end{center}
+\end{columns}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Adding SHIP1/SHIP2 -- In Progress}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/model2.pdf}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Future Plan}
+  
+
+
+\begin{columns}
+\column{.6\textwidth}
+\begin{itemize}
+  \item Adding spatial dimension
+  \item Stochastic reactions
+  \item Single molecule representations rather than populations
+\end{itemize}
+\column{.4\textwidth}
+\begin{center}
+\includegraphics[height=.5\textheight]{figs/model_spatial.png}
+\end{center}
+\end{columns}
+
+  
+\end{frame}
+
+\section{Gene Expression Analysis}
+
+
+
+
+\subsection{RNA-seq}
+
+
+
+\begin{frame}
+ \frametitle{Brief Intro}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/gene-expression.png}
+\end{center}
+
+\fn{Figure from www.discovery.lifemapsc.com}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Method}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/RNA-sequencing.png}
+\end{center}
+
+\fn{Figure from www.raetschlab.org}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Read Alignment}
+  
+
+
+\begin{center}
+\includegraphics[height=.6\textheight]{figs/alignment.png}
+\end{center}
+
+\fn{Figure from www.arrayserver.com}
+
+  
+\end{frame}
+
+\subsection{Our Data}
+
+
+
+\begin{frame}
+ \frametitle{Experiment Design}
+  
+
+
+-- Everything done by Veronique Juvin
+\begin{itemize}
+  \item Human, breast-derived MCF10a cell line
+  \item 4 conditions
+\begin{itemize}
+  \item WT
+  \item WT + p110\(\alpha\) selective inhibitor (A66) -- KO below
+  \item PTEN -/- (both mutant alleles) -- PTEN below
+  \item p110\(\alpha\) H1047R/+ (1 WT allele / 1 mutant allele) -- KI below
+\end{itemize}
+  \item RNA-seq time course measurements at 0m-15m-40m-90m-180m-300m
+  \item 3 replicates for each point
+\end{itemize}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Expression Data}
+  
+
+
+\begin{center}
+\includegraphics[height=.6\textheight]{figs/rna-seq-data.png}
+\end{center}
+
+  
+\end{frame}
+
+\subsection{Preliminary Analysis}
+
+
+
+\begin{frame}
+ \frametitle{Correlation Matrix}
+  
+
+
+\begin{center}
+\includegraphics[height=.8\textheight]{figs/correlation-matrix.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Principal Component Analysis}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/pca2.pdf}
+\end{center}
+
+  
+\end{frame}
+
+\subsection{Time-Course Analysis}
+
+
+
+\begin{frame}
+ \frametitle{DE Analysis Tool}
+  
+
+
+\begin{itemize}
+  \item DESeq package (from Bioconductor) -- takes into account all replicates
+  \item FDR of 1\%
+\end{itemize}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Time Direction}
+  
+
+
+\begin{center}
+\includegraphics[height=.6\textheight]{figs/rna-seq-data1.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Time Direction}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/time_direction.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Time Profiles}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/time_profiles1.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Time Profiles}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/time_profiles2.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Condition Direction}
+  
+
+
+\begin{center}
+\includegraphics[height=.6\textheight]{figs/rna-seq-data2.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Condition Direction}
+  
+
+
+\begin{center}
+\includegraphics[height=.7\textheight]{figs/condition_direction.png}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Condition Profiles}
+  
+
+
+\begin{center}
+\includegraphics[height=.8\textheight]{figs/cond_profiles.pdf}
+\end{center}
+
+  
+\end{frame}
+\begin{frame}
+ \frametitle{Future Plan}
+  
+
+
+\begin{itemize}
+  \item Identify unique EGF stimulation related genes
+\end{itemize}
+
+  
+\end{frame}
+
+\section{Acknowledgments}
+
+
+
+\begin{frame}
+ \frametitle{Acknowledgments}
+  
+
+\begin{itemize}
+  \item People
+\begin{itemize}
+  \item Mouhannad Malek, Veronique Juvin
+  \item Len Stephens, Phill Hawkins
+  \item Nicolas Le Novere and the group
+  \item Nicholas Luscombe and the LRI group
+  \item Marija Jankovic, Sven Bergmann, Anne Segonds-Pichon, Simon Andrews
+\end{itemize}
+  \item Money
+\begin{itemize}
+  \item BBSRC grant
+  \item Babraham Institute
+\end{itemize}
+\end{itemize}
+
+\vspace{.3cm}
+{\tiny Note: this presentation was made with \LaTeX, Beamer + Wiki2Beamer}
+
+{\tiny Example: {{http://github.com/gjuggler/talk-pdoc-seminar}}}
+
+
+  
+\end{frame}
+

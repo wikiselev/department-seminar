@@ -1,0 +1,102 @@
+Version 0.9.5 (2012-03-31)
+=======================================
+Added -o,--output option
+Fix for bug 3365134, mixing coloring and filenames with underscores
+Improve performance of make_sorted
+Various fixes in manpage
+
+Version 0.9.4 (2011-05-08)
+=======================================
+Added Python 3000 compatibility
+Restored Python 2.3 compatibility
+Fixed bug in >>>include<<< statements after [code] sections
+
+Version 0.9.3 (2011-05-06)
+=======================================
+Improved/Fixed vastly permissive color replacement rule (_color_text_)
+Thanks to Georges Khaznadar for the patch.
+
+Version 0.9.2 (2010-12-31) (happy new year)
+===========================================
+Fixed small bug that prevented fragile frames from working
+Added new up-to-date example
+
+Version 0.9.1 (2010-11-15)
+=======================================
+Fixed behaviour of >>>includefile<<< inside [code] environments
+
+Version 0.9.0 (2010-11-08)
+=======================================
+Improved commandline parsing and handling multiple input files
+Added escaping of @ and ! as \@ and \!
+Added file inclusion with >>>includefile<<<
+
+Version 0.8.1 (2009-09-16)
+=======================================
+Added new syntax abbreviations for \uncover, \only, \vspace and \vspace*,
+added frame marking (!) for selective compilation of few frames.
+See man-page for syntax details.
+
+Version 0.8 (2009-07-03)
+=======================================
+Changed license from "GNU GPL v2 only" to "GNU GPL v2 or any later", Changed license of
+documentation to "GNU FDL 1.3 or later"
+Bugfixes:
+* failing transformation after bullet/numbered lists fixed
+* python 2.4 compatibility fixed
+
+Version 0.7 (2009-06-06)
+=======================================
+manpage added, package structure cleaned up, footnote-bug fixed,
+<[codeframe]> tags removed, rehashing for animated code listings
+added (no more collisions possible), Python 2.4 compatibility fixes added.
+
+Version 0.7 alpha 2 (2009-05-14)
+=======================================
+autotemplate support added - no more templates required to create
+wiki2beamer presentations
+
+Version 0.7 alpha 1 (2009-05-10)
+=======================================
+Frame-close detection for \end{frame} removed as it causes trouble in
+some situations. <[nowiki] [nowiki]> environment added. Support for
+animated code listings with the <[code] [code]> environment.
+Some unittests added. New example for version0_7
+
+Version 0.6 (2009-04-07)
+=======================================
+Frames can be closed "manually" using [frame]>. Thanks to Kai Dietrich
+for providing the appropriate code.
+
+
+Version 0.5 (2008-05-02)
+=======================================
+\color bug fixed, now uses \teduixtcolor
+New markup for colors: _red_ example_  (%red% example% does not work any longer)
+
+
+Version 0.4 (2007-07-05)
+=======================================
+Optional section and subsection commands can be used. Two variables can be
+used/set to show content at the top and bottom of every frame.
+Both features are presented in a new example file.
+
+
+Version 0.3 (2007-05-21)
+=======================================
+Frames will now be created as \begin{frame} ... \end{frame} instead of \frame.
+Furthermore, it is possible to add parameters (eg. [fragile]) to frame
+definitions.
+A parameter "--version" has been introduced to show the current version of
+wiki2beamer.
+Graphics can be included with <<<filename>>>.
+Lines can be joined with (unescaped) percent signs (%) as last character of the first line.
+A new example using images
+
+
+Version 0.2 (2007-05-11)
+=======================================
+Wiki-like support for environments has been added.
+Special wiki tags for columns and footnotes.
+Some substitutions (such as ==> to $\Rightarrow$ have been added).
+New (advanced) example
